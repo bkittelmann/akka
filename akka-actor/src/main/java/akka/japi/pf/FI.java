@@ -62,6 +62,23 @@ public final class FI {
   }
 
   /**
+   * Functional interface for a predicate.
+   *
+   * @param <T> the type that the predicate will operate on.
+   * @param <U> the type that the predicate will operate on.
+   */
+  public static interface TypedPredicate2<T, U> {
+    /**
+     * The predicate to evaluate.
+     *
+     * @param t  an instance that the predicate is evaluated on.
+     * @param u  an instance that the predicate is evaluated on.
+     * @return  the result of the predicate
+     */
+    public boolean defined(T t, U u);
+  }
+
+  /**
    * Functional interface for an application.
    *
    * @param <I> the input type, that this Apply will be applied to
