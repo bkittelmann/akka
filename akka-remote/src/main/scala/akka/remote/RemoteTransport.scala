@@ -292,6 +292,8 @@ abstract class RemoteTransport(val system: ExtendedActorSystem, val provider: Re
             case AddressFromURIString(address) if address == provider.transport.address ⇒
               // if it was originally addressed to us but is in fact remote from our point of view (i.e. remote-deployed)
               r.!(remoteMessage.payload)(remoteMessage.sender)
+            case ActorPathExtractor(natAddress, elements) if natAddress.system == system.name ⇒
+              system.actorFor(elements).tell(remoteMessage.payload, remoteMessage.sender)
             case r ⇒
               log.debug("dropping message [{}] for non-local recipient [{}] arriving at [{}] inbound address is [{}]",
                 remoteMessage.payloadClass, r, address, provider.transport.address)
